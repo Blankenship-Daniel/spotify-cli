@@ -1,0 +1,32 @@
+{
+  "name": "spotify-cli",
+  "version": "1.0.0",
+  "description": "a simple cli for spotify",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "start": "npm run build && node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blankenship-Daniel/spotify-cli.git"
+  },
+  "author": "Daniel Blankenship",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Blankenship-Daniel/spotify-cli/issues"
+  },
+  "homepage": "https://github.com/Blankenship-Daniel/spotify-cli#readme",
+  "dependencies": {
+    "child-process-promise": "^2.2.1",
+    "express": "^4.15.4",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "rimraf": "^2.6.1"
+  }
+}

@@ -19,8 +19,9 @@
   },
   "homepage": "https://github.com/Blankenship-Daniel/spotify-cli#readme",
   "dependencies": {
-    "child-process-promise": "^2.2.1",
     "express": "^4.15.4",
+    "opn": "^5.1.0",
+    "query-string": "^5.0.0",
     "request": "^2.81.0",
     "request-promise": "^4.2.1"
   },

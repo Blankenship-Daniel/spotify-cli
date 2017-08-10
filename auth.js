@@ -1,4 +1,5 @@
 import opn from 'opn'
+import api from './api'
 import express from 'express'
 import request from 'request-promise'
 import queryString from 'query-string'
@@ -44,9 +45,7 @@ app.get('/callback', (req, res) => {
     .then(data => {
       const accessToken = data.access_token
       const refreshToken = data.refresh_token
-
-      console.log('access token')
-      console.log(accessToken)
+      api(accessToken)
     })
     .catch(err => console.error(err))
 })

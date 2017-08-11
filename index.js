@@ -1,12 +1,11 @@
-import app from './auth'
-import request from 'request-promise'
-import { config } from './config/spotify_client_creds'
+import opn from 'opn'
+import queryString from 'query-string'
+import server from './server'
 
-const server = config.server
-
-// Start the server listening on port 8888
-const s = app.listen(8888)
-
-request(`${server}/login`)
-  .then(data => console.log(data))
-  .then(err => console.error(err))
+opn('https://accounts.spotify.com/authorize?' +
+  queryString.stringify({
+    response_type: 'code',
+    client_id: process.env.CLIENT_ID,
+    scope: 'user-read-private user-read-email',
+    redirect_uri: process.env.CALLBACK_URI
+  }))

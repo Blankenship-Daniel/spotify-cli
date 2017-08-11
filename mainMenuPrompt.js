@@ -22,10 +22,18 @@ const mainMenuPrompt = () => {
     clear() // the terminal window
     prompt.start()
 
-    console.log()
-    console.log('Spotify CLI')
-    console.log()
+    console.log(
+`
+////////////////////////////////////////////
+//                                        //  
+//             SPOTIFY CLI                //
+//                                        //
+////////////////////////////////////////////
+`
+    )
     console.log(menu)
+    console.log()
+    
     prompt.get(schema, (err, result) => {
       if (err !== null)
         reject(new Error('there was an error processing the main menu prompt'))

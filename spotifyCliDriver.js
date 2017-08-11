@@ -21,6 +21,7 @@ const mapSearchResults = searchResults => {
 
     if (tracks === null)
       reject(new Error('search did not populate any results'))
+
     resolve(tracks)
   })
 }
@@ -32,36 +33,37 @@ const mapSearchResults = searchResults => {
  */
 const makeSearchRequest = accessToken => searchQuery => {
   return new Promise((resolve, reject) => {
-    const query = encodeURI(searchQuery)
-      const searchOptions = {
-        uri: 'https://api.spotify.com/v1/search',
-        qs: {
-          type: 'track,artist,album,playlist',
-          q: query
-        },
-        headers: { 'Authorization': 'Bearer ' + accessToken },
-        json: true
-      }
-      request(searchOptions)
-        .then(results => resolve(results))
-        .catch(err => reject(err))
+    const searchOptions = {
+      uri: 'https://api.spotify.com/v1/search',
+      qs: {
+        type: 'track,artist,album,playlist',
+        q: searchQuery
+      },
+      headers: { 'Authorization': 'Bearer ' + accessToken },
+      json: true
+    }
+    request(searchOptions)
+      .then(resolve).catch(reject)
   })
 }
 
 const spotifyCliDriver = accessToken => {
-  mainMenuPrompt()
-    .then(option => {
-      if (option === '0')
-        process.exit() // exit the program
+    mainMenuPrompt()
+      .then(option => {
+        if (option === '0')
+          process.exit() // exit the program
 
-      searchPrompt()
-        .then(makeSearchRequest(accessToken))
-        .then(mapSearchResults)
-        .then(songSelectionPrompt)
-        .then(openTrack)
-        .catch(err => console.error(err))
-    })
-    .catch(err => console.error(err))
+        searchPrompt()
+          .then(makeSearchRequest(accessToken))
+          .then(mapSearchResults)
+          .then(songSelectionPrompt)
+          .then(track => {
+            openTrack(track)
+            spotifyCliDriver(accessToken) // go back to main menu
+          })
+          .catch(console.error)
+      })
+      .catch(console.error)
 }
 
 export default spotifyCliDriver
